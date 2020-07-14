@@ -11,16 +11,17 @@ import rootReducer from "./reducers/index"
 import * as serviceWorker from "./serviceWorker"
 
 import "bootstrap/dist/css/bootstrap.css"
-
+import "./index.css";
 
 ReactDOM.render(
-  <Provider store={ createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))) }>
-    <Router>
-      <Route exact path="/" component={ () => <App /> } />
-    </Router>
-  </Provider>,
 
-  document.getElementById("root")
+    <Provider store={ createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))) }>
+        <Router>
+            <Route exact path="/" component={ () => <App /> } />
+        </Router>
+    </Provider>,
+
+    document.getElementById("root")
 )
 
 serviceWorker.unregister()

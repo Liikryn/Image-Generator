@@ -1,15 +1,43 @@
 import React from "react"
 
+import Generator from "./Generator/Generator"
 
-class App extends React.Component {
+class App extends React.Component
+{
 
-  public render(): React.ReactElement {
-    return (
-      <div>
-        <p>Hello World</p>
-      </div>
-    )
-  }
+    private canvasRef = React.createRef<HTMLCanvasElement>()
+
+
+
+    public componentDidMount(): void
+    {
+        // Scale canvas to fit screen
+        const canvas = this.canvasRef.current!;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Generate image
+        this.generateImage(canvas);
+    }
+
+    private generateImage(canvas: HTMLCanvasElement): void
+    {
+        // Pass canvas to generator
+        const generator = new Generator(canvas);
+        generator.generate();
+    }
+
+
+
+    public render(): React.ReactElement
+    {
+        return (
+            <div>
+                <canvas ref={ this.canvasRef } />
+            </div>
+        )
+    }
 
 }
 
