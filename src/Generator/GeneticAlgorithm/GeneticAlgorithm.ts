@@ -7,7 +7,12 @@ abstract class GeneticAlgorithm<T extends Genome<T>>
 
 
 
-    protected constructor(private population: T[]) { }
+    protected constructor(
+
+        protected population: T[],
+        protected mutationRate: number
+    )
+    { }
 
 
 
@@ -28,7 +33,7 @@ abstract class GeneticAlgorithm<T extends Genome<T>>
         for (let i = 1; i < this.population.length; i++)
         {
             // Randomly select based on fitness
-            newPopulation[i] = this.selectGenome().mutate()
+            newPopulation[i] = this.selectGenome().mutate(this.mutationRate)
         }
 
         this.population = newPopulation

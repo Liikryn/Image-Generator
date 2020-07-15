@@ -4,7 +4,7 @@ import Image from "./Image"
 class ImageMatcher extends GeneticAlgorithm<Image>
 {
 
-    public constructor(populationSize: number)
+    public constructor(populationSize: number, mutationRate: number)
     {
         // Create population
         let population: Image[] = []
@@ -14,7 +14,18 @@ class ImageMatcher extends GeneticAlgorithm<Image>
             population[i] = new Image()
         }
 
-        super(population)
+        super(population, mutationRate)
+    }
+
+
+
+    public addTriangle(): void
+    {
+        // Add triangle to every image
+        for (let image of this.population)
+        {
+            image.addTriangle()
+        }
     }
 
 }

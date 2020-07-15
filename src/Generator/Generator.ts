@@ -4,6 +4,11 @@ import ImageDrawer from "./Image/ImageDrawer"
 class Generator
 {
 
+    public static populationSize = 10
+    public static mutationRate = 0.05
+
+
+
     public constructor(private canvas: HTMLCanvasElement) { }
 
 
@@ -11,7 +16,7 @@ class Generator
     public generate(): void
     {
         // Run genetic algorithm
-        let matcher = new ImageMatcher(1)
+        let matcher = new ImageMatcher(Generator.populationSize, Generator.mutationRate)
 
         for (let i = 0; i < 1; i++)
         {
@@ -19,10 +24,26 @@ class Generator
         }
 
         // Draw image
-        let image = matcher.getBestGenome()
-        let drawer = new ImageDrawer(image.getTriangles(), this.canvas)
+        let canvas = this.canvas
+        let i = 0
 
-        drawer.draw()
+        function draw()
+        {
+            let image = matcher.getBestGenome()
+            let drawer = new ImageDrawer(image.getTriangles(), canvas)
+            drawer.draw()
+
+            matcher.nextGeneration()
+
+            if (++i >= 100)
+            {
+                i = 0
+                matcher.addTriangle()
+            }
+
+            requestAnimationFrame(draw)
+        }
+        draw()
     }
 
 }

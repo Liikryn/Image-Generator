@@ -1,8 +1,11 @@
+
 import Vector from "./Vector"
 import Color from "./Color"
 
 class Triangle
 {
+
+    private static mutationRate = 0.05
 
     public static random(width: number, height: number): Triangle
     {
@@ -19,15 +22,41 @@ class Triangle
 
 
 
-    public constructor(
+    private constructor(
 
-        public a: Vector,
-        public b: Vector,
-        public c: Vector,
+        private a: Vector,
+        private b: Vector,
+        private c: Vector,
 
-        public color: Color
+        private color: Color
     )
     { }
+
+
+
+    public draw(c: CanvasRenderingContext2D): void
+    {
+        // Draw triangle
+        c.beginPath()
+        c.lineTo(this.a.x, this.a.y)
+        c.lineTo(this.b.x, this.b.y)
+        c.lineTo(this.c.x, this.c.y)
+
+        // Set color and fill
+        c.fillStyle = `rgba(${ this.color.r }, ${ this.color.g }, ${ this.color.b }, ${ this.color.a })`
+        c.fill()
+    }
+
+    public mutate(rate: number): Triangle
+    {
+        // Mutate values with specified rate
+        let a = this.a.mutate(rate)
+        let b = this.b.mutate(rate)
+        let c = this.c.mutate(rate)
+        let color = this.color.mutate(rate)
+
+        return new Triangle(a, b, c, color)
+    }
 
 }
 

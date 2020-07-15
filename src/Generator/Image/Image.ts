@@ -1,21 +1,20 @@
 import Genome from "../GeneticAlgorithm/Genome"
 import Triangle from "./Triangle/Triangle"
-import Vector from "./Triangle/Vector"
-import Color from "./Triangle/Color"
 
 class Image implements Genome<Image>
 {
 
-    private triangles: Triangle[]
+    private triangles: Triangle[] = []
     private fitness: number = 0
 
 
 
-    public constructor(triangles?: Triangle[])
+    public constructor(triangles?: Triangle[]) // TODO: Target image
     {
         if (triangles === undefined)
         {
-            this.triangles = [new Triangle(new Vector(100, 100), new Vector(300, 100), new Vector(100, 200), Color.random())]
+            // Stat with random triangle
+            this.addTriangle()
         }
         else
         {
@@ -27,7 +26,8 @@ class Image implements Genome<Image>
 
     private calculateFitness(): void
     {
-        this.fitness = 0
+        // TODO: Calculate fitness
+        this.fitness = Math.random()
     }
 
 
@@ -43,9 +43,31 @@ class Image implements Genome<Image>
     }
 
 
-    public mutate(): Image
+    public mutate(rate: number): Image
     {
-        return new Image(this.triangles)
+        let newTriangles: Triangle[] = []
+
+        // Move triangles to new array
+        for (let i = 0; i < this.triangles.length; i++)
+        {
+            if (i < this.triangles.length - 1)
+            {
+                newTriangles[i] = this.triangles[i]
+            }
+            else
+            {
+                // Mutate last triangle
+                newTriangles[i] = this.triangles[i].mutate(rate)
+            }
+        }
+
+        return new Image(newTriangles)
+    }
+
+    public addTriangle(): void
+    {
+        // Add random triangle
+        this.triangles.push(Triangle.random(1280, 720))
     }
 
 }
