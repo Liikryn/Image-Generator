@@ -1,5 +1,4 @@
-import GeneticAlgorithm from "./GeneticAlgorithm/GeneticAlgorithm"
-import Text from "./Text"
+import Matcher from "./Matcher"
 
 class Generator
 {
@@ -17,22 +16,14 @@ class Generator
 
     public generate(): void
     {
-        // Create population
-        Text.target = "Dale Xu"
-        let population: Text[] = []
-
-        for (let i = 0; i < 100; i++)
-        {
-            population[i] = new Text()
-        }
-
         // Run genetic algorithm
-        let ga = new GeneticAlgorithm<Text>(population)
+        let target = "Dale Xu"
+        let matcher = new Matcher(100, target)
 
-        while (ga.getBestGenome().getText() !== Text.target)
+        while (matcher.getBestGenome().getText() !== target)
         {
-            ga.nextGeneration()
-            console.log(ga.getBestGenome().getText())
+            matcher.nextGeneration()
+            console.log(matcher.getBestGenome().getText())
         }
     }
 

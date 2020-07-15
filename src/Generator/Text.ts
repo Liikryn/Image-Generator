@@ -1,12 +1,11 @@
-import Genome from "./GeneticAlgorithm/Genome";
+import Genome from "./GeneticAlgorithm/Genome"
 
 class Text implements Genome<Text>
 {
 
-    public static target = ""
     private static mutationRate = 0.02
 
-    private static alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 .,!?()\""
+    private static alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 .,!?()\"'"
 
 
 
@@ -20,18 +19,19 @@ class Text implements Genome<Text>
 
 
     private text: string
+
     private fitness: number = 0
 
 
 
-    public constructor(text?: string)
+    public constructor(private target: string, text?: string)
     {
         if (text === undefined)
         {
             this.text = ""
 
             // Create string with same length as target
-            for (let i = 0; i < Text.target.length; i++)
+            for (let i = 0; i < this.target.length; i++)
             {
                 this.text += Text.randomCharacter()
             }
@@ -50,7 +50,7 @@ class Text implements Genome<Text>
         for (let i = 0; i < this.text.length; i++)
         {
             // Count matching characters
-            if (this.text[i] === Text.target[i])
+            if (this.text[i] === this.target[i])
             {
                 this.fitness++
             }
@@ -91,7 +91,7 @@ class Text implements Genome<Text>
             }
         }
 
-        return new Text(text)
+        return new Text(this.target, text)
     }
 
 }

@@ -12,20 +12,20 @@ class App extends React.Component
     public componentDidMount(): void
     {
         // Scale canvas to fit screen
-        let canvas = this.canvasRef.current!;
+        let canvas = this.canvasRef.current!
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
 
         // Generate image
-        this.generateImage(canvas);
+        this.generateImage(canvas)
     }
 
     private generateImage(canvas: HTMLCanvasElement): void
     {
         // Pass canvas to generator
-        let generator = new Generator(canvas);
-        generator.generate();
+        let generator = new Generator(canvas)
+        generator.generate()
     }
 
 

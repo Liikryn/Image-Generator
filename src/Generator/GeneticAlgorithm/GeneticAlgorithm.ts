@@ -1,21 +1,29 @@
 import Genome from "./Genome"
 
-class GeneticAlgorithm<T extends Genome<T>>
+abstract class GeneticAlgorithm<T extends Genome<T>>
 {
 
     private fitnessSum: number = 0
 
 
 
-    public constructor(private population: T[]) { }
+    protected constructor(private population: T[]) { }
 
 
 
     public nextGeneration(): void
     {
+        // Calculate fitness sum
+        this.fitnessSum = 0
+
+        for (let i = 0; i < this.population.length; i++)
+        {
+            // Add fitnesses
+            this.fitnessSum += this.population[i].getFitness()
+        }
+
         // Create new population
-        let newPopulation: T[] = [this.getBestGenome()]
-        this.calculateFitnessSum() // Calculate sum
+        let newPopulation: T[] = [this.getBestGenome()] // Keep best genome from previous generation
 
         for (let i = 1; i < this.population.length; i++)
         {
@@ -41,17 +49,6 @@ class GeneticAlgorithm<T extends Genome<T>>
         }
 
         return bestGenome
-    }
-
-    private calculateFitnessSum(): void
-    {
-        this.fitnessSum = 0
-
-        for (let i = 0; i < this.population.length; i++)
-        {
-            // Add fitnesses
-            this.fitnessSum += this.population[i].getFitness()
-        }
     }
 
 
