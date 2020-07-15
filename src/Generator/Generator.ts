@@ -1,4 +1,4 @@
-import Matcher from "./Matcher"
+import ImageMatcher from "./Image/ImageMatcher"
 
 class Generator
 {
@@ -18,7 +18,7 @@ class Generator
     {
         // Run genetic algorithm
         let target = "Dale Xu"
-        let matcher = new Matcher(100, target)
+        let matcher = new ImageMatcher(100, target)
 
         while (matcher.getBestGenome().getText() !== target)
         {

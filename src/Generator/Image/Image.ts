@@ -1,6 +1,7 @@
-import Genome from "./GeneticAlgorithm/Genome"
+import Genome from "../GeneticAlgorithm/Genome"
+import Triangle from "./Triangle/Triangle"
 
-class Text implements Genome<Text>
+class Image implements Genome<Image>
 {
 
     private static mutationRate = 0.02
@@ -12,14 +13,15 @@ class Text implements Genome<Text>
     private static randomCharacter(): string
     {
         // Get random character from alphabet
-        let index = Math.floor(Math.random() * Text.alphabet.length)
-        return Text.alphabet[index]
+        let index = Math.floor(Math.random() * Image.alphabet.length)
+        return Image.alphabet[index]
     }
 
 
 
-    private text: string
+    private triangles: Triangle[] = []
 
+    private text: string
     private fitness: number = 0
 
 
@@ -33,7 +35,7 @@ class Text implements Genome<Text>
             // Create string with same length as target
             for (let i = 0; i < this.target.length; i++)
             {
-                this.text += Text.randomCharacter()
+                this.text += Image.randomCharacter()
             }
         }
         else
@@ -73,16 +75,16 @@ class Text implements Genome<Text>
     }
 
 
-    public mutate(): Text
+    public mutate(): Image
     {
         let text = ""
 
         for (let i = 0; i < this.text.length; i++)
         {
-            if (Math.random() < Text.mutationRate)
+            if (Math.random() < Image.mutationRate)
             {
                 // Mutation resets character
-                text += Text.randomCharacter()
+                text += Image.randomCharacter()
             }
             else
             {
@@ -91,9 +93,9 @@ class Text implements Genome<Text>
             }
         }
 
-        return new Text(this.target, text)
+        return new Image(this.target, text)
     }
 
 }
 
-export default Text
+export default Image
