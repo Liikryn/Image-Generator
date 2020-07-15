@@ -8,7 +8,8 @@ class Color
 
             Math.floor(Math.random() * 256),
             Math.floor(Math.random() * 256),
-            Math.floor(Math.random() * 256)
+            Math.floor(Math.random() * 256),
+            Math.random()
         )
     }
 
@@ -18,7 +19,8 @@ class Color
 
         public r: number,
         public g: number,
-        public b: number
+        public b: number,
+        public a: number
     )
     { }
 

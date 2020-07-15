@@ -14,8 +14,8 @@ class App extends React.Component
         // Scale canvas to fit screen
         let canvas = this.canvasRef.current!
 
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
+        canvas.width = 1280
+        canvas.height = 720
 
         // Generate image
         this.generateImage(canvas)

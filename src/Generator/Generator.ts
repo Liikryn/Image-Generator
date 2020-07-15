@@ -1,30 +1,28 @@
 import ImageMatcher from "./Image/ImageMatcher"
+import ImageDrawer from "./Image/ImageDrawer"
 
 class Generator
 {
 
-    private c: CanvasRenderingContext2D
-
-
-
-    public constructor(private canvas: HTMLCanvasElement)
-    {
-        this.c = canvas.getContext("2d")!
-    }
+    public constructor(private canvas: HTMLCanvasElement) { }
 
 
 
     public generate(): void
     {
         // Run genetic algorithm
-        let target = "Dale Xu"
-        let matcher = new ImageMatcher(100, target)
+        let matcher = new ImageMatcher(1)
 
-        while (matcher.getBestGenome().getText() !== target)
+        for (let i = 0; i < 1; i++)
         {
             matcher.nextGeneration()
-            console.log(matcher.getBestGenome().getText())
         }
+
+        // Draw image
+        let image = matcher.getBestGenome()
+        let drawer = new ImageDrawer(image.getTriangles(), this.canvas)
+
+        drawer.draw()
     }
 
 }
