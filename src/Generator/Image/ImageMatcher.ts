@@ -4,14 +4,14 @@ import Image from "./Image"
 class ImageMatcher extends GeneticAlgorithm<Image>
 {
 
-    public constructor(populationSize: number, mutationRate: number)
+    public constructor(target: ImageData, populationSize: number, mutationRate: number)
     {
         // Create population
         let population: Image[] = []
 
         for (let i = 0; i < populationSize; i++)
         {
-            population[i] = new Image()
+            population[i] = new Image(target)
         }
 
         super(population, mutationRate)

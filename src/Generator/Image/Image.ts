@@ -1,3 +1,5 @@
+import ImageDrawer from "./ImageDrawer"
+import ImageComparer from "./ImageComparer"
 import Genome from "../GeneticAlgorithm/Genome"
 import Triangle from "./Triangle/Triangle"
 
@@ -9,7 +11,7 @@ class Image implements Genome<Image>
 
 
 
-    public constructor(triangles?: Triangle[]) // TODO: Target image
+    public constructor(private target: ImageData, triangles?: Triangle[])
     {
         if (triangles === undefined)
         {
@@ -26,8 +28,20 @@ class Image implements Genome<Image>
 
     private calculateFitness(): void
     {
-        // TODO: Calculate fitness
-        this.fitness = Math.random()
+        // Create canvas
+        let canvas = document.createElement("canvas")
+
+        // Scale canvas to match image
+        canvas.width = this.target.width
+        canvas.height = this.target.height
+
+        // Draw image onto canvas
+        let drawer = new ImageDrawer(this.triangles, canvas)
+        drawer.draw()
+
+        // Compare images
+        let comparer = new ImageComparer(this.target, canvas)
+        this.fitness = 1 / comparer.compare() ** 2
     }
 
 
@@ -61,13 +75,13 @@ class Image implements Genome<Image>
             }
         }
 
-        return new Image(newTriangles)
+        return new Image(this.target, newTriangles)
     }
 
     public addTriangle(): void
     {
         // Add random triangle
-        this.triangles.push(Triangle.random(1280, 720))
+        this.triangles.push(Triangle.random(this.target.width, this.target.height))
     }
 
 }

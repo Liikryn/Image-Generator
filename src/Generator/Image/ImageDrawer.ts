@@ -18,7 +18,7 @@ class ImageDrawer
         let c = this.canvas.getContext("2d")!
 
         // Create empty background
-        c.fillStyle = "black"
+        c.fillStyle = "white"
         c.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
         // Draw all triangles
