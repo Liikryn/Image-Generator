@@ -5,8 +5,6 @@ import Color from "./Color"
 class Triangle
 {
 
-    private static mutationRate = 0.05
-
     public static random(width: number, height: number): Triangle
     {
         // Create random triangle

@@ -15,10 +15,13 @@ class App extends React.Component
     {
         // Scale canvas to fit screen
         let canvas = this.canvasRef.current!
+        let c = canvas.getContext("2d")!
         let image = this.getImageData(this.imageRef.current!)
 
-        canvas.width = image.width
-        canvas.height = image.height
+        // Resize and scale context
+        canvas.width = 1920
+        canvas.height = 1080
+        c.scale(canvas.width / image.width, canvas.height / image.height)
 
         // Generate image
         this.generateImage(canvas, image)

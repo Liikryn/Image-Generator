@@ -4,8 +4,9 @@ import ImageDrawer from "./Image/ImageDrawer"
 class Generator
 {
 
-    public static populationSize = 500
-    public static mutationRate = 0.1
+    private static populationSize = 500
+    private static minGenerations = 200
+    private static mutationRate = 0.1
 
 
 
@@ -23,6 +24,8 @@ class Generator
         // Run genetic algorithm
         let matcher = new ImageMatcher(this.image, Generator.populationSize, Generator.mutationRate)
         let canvas = this.canvas
+
+        let fitness = 0
         let i = 0
 
         function draw()
@@ -35,10 +38,13 @@ class Generator
             // Get next generation
             matcher.nextGeneration()
 
-            // Add a new triangle every few generations
-            if (++i >= 200)
+            // New triangle must be better than previous before adding more triangles
+            if (++i >= Generator.minGenerations && image.getFitness() > fitness)
             {
+                fitness = image.getFitness() // Save fitness without new triangle
                 i = 0
+
+                // Add a new triangle every few generations
                 matcher.addTriangle()
             }
 
