@@ -41,7 +41,7 @@ class Image implements Genome<Image>
 
         // Compare images
         let comparer = new ImageComparer(this.target, canvas)
-        this.fitness = 1 / comparer.compare() ** 2
+        this.fitness = 1 / comparer.compare() ** 3
     }
 
 

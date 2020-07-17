@@ -28,18 +28,15 @@ class Generator
         let fitness = 0
         let i = 0
 
-        function draw()
+        function draw(): void
         {
             // Draw best image
             let image = matcher.getBestGenome()
             let drawer = new ImageDrawer(image.getTriangles(), canvas)
             drawer.draw()
 
-            // Get next generation
-            matcher.nextGeneration()
-
             // New triangle must be better than previous before adding more triangles
-            if (++i >= Generator.minGenerations && image.getFitness() > fitness)
+            if (image.getFitness() > fitness && ++i >= Generator.minGenerations)
             {
                 fitness = image.getFitness() // Save fitness without new triangle
                 i = 0
@@ -48,7 +45,10 @@ class Generator
                 matcher.addTriangle()
             }
 
-            console.log(i)
+            // Get next generation
+            matcher.nextGeneration()
+            console.log(i, image.getFitness())
+
             requestAnimationFrame(draw)
         }
         draw()

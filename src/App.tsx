@@ -1,7 +1,7 @@
 import React from "react"
 
 import Generator from "./Generator/Generator"
-import image from "./image2.png"
+import image from "./image.png"
 
 class App extends React.Component
 {
@@ -23,8 +23,9 @@ class App extends React.Component
         canvas.height = 1080
         c.scale(canvas.width / image.width, canvas.height / image.height)
 
-        // Generate image
-        this.generateImage(canvas, image)
+        // Pass canvas to generator
+        let generator = new Generator(canvas, image)
+        generator.generate()
     }
 
     private getImageData(image: HTMLImageElement): ImageData
@@ -40,13 +41,6 @@ class App extends React.Component
         // Draw image
         c.drawImage(image, 0, 0)
         return c.getImageData(0, 0, image.width, image.height)
-    }
-
-    private generateImage(canvas: HTMLCanvasElement, image: ImageData): void
-    {
-        // Pass canvas to generator
-        let generator = new Generator(canvas, image)
-        generator.generate()
     }
 
 
